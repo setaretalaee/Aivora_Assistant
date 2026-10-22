@@ -1,0 +1,156 @@
+.hero-typing{
+  --bg:#0a0b10;
+  --fg:#f3f4f8;
+  --muted:#9498a6;
+  --line:rgba(255,255,255,.10);
+  --accent:#7c8cff;
+  --accent2:#33d6ff;
+}
+.hero-typing{
+  --bg:#0a0b10;
+  --fg:#f3f4f8;
+  --muted:#9498a6;
+  --line:rgba(255,255,255,.10);
+  --panel:#101119;
+  --accent:#7c8cff;
+  --accent2:#33d6ff;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* اضافه شد */
+  text-align: center;
+  gap: clamp(20px,3vw,30px);
+  width: 100%; /* اضافه شد */
+  min-height: 100vh; /* مهم‌ترین قسمت */
+  padding: clamp(56px,9vw,120px) clamp(20px,5vw,72px);
+  background: radial-gradient(
+    120% 100% at 50% -10%,
+    #12141f 0%,
+    var(--bg) 60%
+  );
+  color: var(--fg);
+  font-family: system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.hero-typing-glow{
+  position:absolute; z-index:-1; pointer-events:none;
+  top:-18%; left:50%; transform:translateX(-50%);
+  width:min(760px,120%); height:520px;
+  background:
+    radial-gradient(closest-side,rgba(124,140,255,.45),transparent 70%),
+    radial-gradient(closest-side,rgba(51,214,255,.28),transparent 72%);
+  background-position:35% 30%,68% 55%;
+  background-repeat:no-repeat;
+  background-size:70% 70%,62% 62%;
+  filter:blur(38px); opacity:.7;
+}
+.hero-typing-grid{
+  position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.35;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 30%,transparent 75%);
+          mask-image:radial-gradient(120% 80% at 50% 0%,#000 30%,transparent 75%);
+}
+.hero-typing-pill{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:7px 15px 7px 11px; border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  font-size:13px; font-weight:600; letter-spacing:.01em; color:var(--fg);
+  backdrop-filter:blur(6px);
+}
+.hero-typing-pill svg{display:block}
+.hero-typing-pill b{color:var(--accent); font-weight:700}
+.hero-typing-dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--accent2); box-shadow:0 0 0 3px rgba(51,214,255,.18);
+}
+.hero-typing-title{
+  margin:0; font-weight:800; letter-spacing:-.03em; line-height:1.04;
+  font-size:clamp(38px,7.4vw,80px); max-width:16ch;
+}
+.hero-typing-title .hero-typing-line{display:block}
+.hero-typing-type{
+  display:inline-flex; align-items:baseline;
+  vertical-align:bottom; white-space:nowrap;
+}
+.hero-typing-word{
+  overflow:hidden; white-space:nowrap;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+  animation:hero-typing-type 9s steps(9) infinite;
+}
+.hero-typing-caret{
+  display:inline-block; width:.06em; min-width:3px;
+  align-self:stretch; margin-left:.04em;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  border-radius:2px;
+  animation:hero-typing-blink 1s steps(1) infinite;
+}
+@keyframes hero-typing-type{
+  0%,8%     {width:0}
+  16%,25%   {width:9ch}
+  33%,41%   {width:0}
+  49%,58%   {width:9ch}
+  66%,74%   {width:0}
+  82%,91%   {width:9ch}
+  100%      {width:0}
+}
+@keyframes hero-typing-blink{
+  0%,50%{opacity:1}
+  51%,100%{opacity:0}
+}
+.hero-typing-sub{
+  margin:0; max-width:56ch; color:var(--muted);
+  font-size:clamp(15px,1.7vw,19px); line-height:1.65;
+}
+.hero-typing-actions{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:4px;
+}
+.hero-typing-btn{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:13px 22px; border-radius:12px;
+  font-size:15px; font-weight:650; cursor:pointer;
+  border:1px solid transparent; text-decoration:none;
+  transition:transform .18s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease;
+}
+.hero-typing-btn svg{display:block}
+.hero-typing-primary{
+  color:#0a0b10;
+  background:linear-gradient(120deg,var(--accent),var(--accent2));
+  box-shadow:0 10px 30px -8px rgba(124,140,255,.6);
+}
+.hero-typing-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px -8px rgba(51,214,255,.6)}
+.hero-typing-ghost{
+  color:var(--fg);
+  background:rgba(255,255,255,.03);
+  border-color:var(--line);
+}
+.hero-typing-ghost:hover{transform:translateY(-2px); background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.22)}
+.hero-typing-meta{
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+  gap:10px 22px; margin-top:8px; color:var(--muted); font-size:13px; font-weight:500;
+}
+.hero-typing-meta span{display:inline-flex; align-items:center; gap:7px}
+.hero-typing-meta svg{display:block; color:var(--accent2)}
+.hero-typing-meta em{color:var(--fg); font-style:normal; font-weight:650}
+@media (max-width:760px){
+  .hero-typing{border-radius:20px}
+  .hero-typing-title{font-size:clamp(34px,10vw,52px)}
+  .hero-typing-meta{gap:8px 16px}
+}
+@media (max-width:460px){
+  .hero-typing-actions{flex-direction:column; align-self:stretch}
+  .hero-typing-btn{justify-content:center}
+  .hero-typing-title{letter-spacing:-.02em}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-typing-word{animation:none; width:9ch}
+  .hero-typing-caret{animation:none; opacity:.9}
+}

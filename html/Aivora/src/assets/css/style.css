@@ -1,0 +1,35 @@
+@import "/src/sections/hero/hero.css";
+@import "/src//sections/statistics/statistics.css";
+@import "/src//sections/footer/footer.css";
+@import "/src//sections/ai-demo-showcase/ai-demo-showcase.css";
+@import "/src//sections/plan-cards/plan-cards.css";
+@import "/src//sections/faq/faq.css";
+@import "/src//sections/cta/cta.css";
+@import "/src//sections/contact/contact.css";
+@import "/src//sections/blog/blog.css";
+@import "/src//sections/solutions/solutions.css";
+@import "/src//sections/ai-demo-video/ai-demo-video.css";
+@import "/src/sections/features/features.css";
+@import "/src/sections/trusted/trusted.css";
+@import "/src/components/navbar/navbar.css";
+@import "/src/components/button/button.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0f172a;
+  color: white;
+  font-family: Inter, sans-serif;
+}
+
+main {
+  width: 100%;
+  min-height: 100vh;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}

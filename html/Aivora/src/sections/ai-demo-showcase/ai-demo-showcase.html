@@ -1,0 +1,1432 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aivora AI Demo</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .ai-demo-showcase {
+            --bg: #0a0b10;
+            --fg: #f3f4f8;
+            --muted: #9498a6;
+            --accent: #7c8cff;
+            --cyan: #33d6ff;
+            --border: rgba(255, 255, 255, 0.09);
+            --panel: #11131b;
+            --spring: cubic-bezier(.34, 1.06, .5, 1);
+
+            width: 100%;
+            padding: 72px 20px;
+            color: var(--fg);
+            background: transparent;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+        }
+
+        .ai-demo-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Section heading */
+
+        .ai-demo-heading {
+            max-width: 720px;
+            margin: 0 auto 36px;
+            text-align: center;
+        }
+
+        .ai-demo-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 8px 13px;
+            color: #c2c9ff;
+            background: rgba(124, 140, 255, 0.09);
+            border: 1px solid rgba(124, 140, 255, 0.22);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .ai-demo-eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            flex: 0 0 7px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 12px rgba(51, 214, 255, 0.7);
+        }
+
+        .ai-demo-heading h2 {
+            margin: 0 0 14px;
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1.12;
+            letter-spacing: -0.045em;
+            font-weight: 750;
+        }
+
+        .ai-demo-gradient-text {
+            background: linear-gradient(100deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .ai-demo-heading p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* Main demo window */
+
+        .ai-demo-window {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+            isolation: isolate;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            background: var(--bg);
+            box-shadow:
+                0 35px 100px rgba(0, 0, 0, 0.28),
+                0 0 70px rgba(124, 140, 255, 0.045);
+        }
+
+        /* Window top bar */
+
+        .ai-demo-topbar {
+            position: absolute;
+            z-index: 5;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 18px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(14, 15, 22, 0.96);
+        }
+
+        .ai-demo-window-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .ai-demo-window-dot:first-child {
+            background: #ff6b6b;
+        }
+
+        .ai-demo-window-dot:nth-child(2) {
+            background: #ffc857;
+        }
+
+        .ai-demo-window-dot:nth-child(3) {
+            background: #50d890;
+        }
+
+        .ai-demo-topbar-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #a9adbb;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* Demo application area */
+
+        .ai-demo-app {
+            position: absolute;
+            inset: 48px 0 0;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 70% 5%,
+                    rgba(124, 140, 255, 0.055),
+                    transparent 38%),
+                var(--bg);
+        }
+
+        /* Animated sidebar */
+
+        .ai-demo-sidebar {
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            width: 68px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 14px 10px;
+
+            overflow: hidden;
+            white-space: nowrap;
+
+            background: rgba(20, 21, 29, 0.97);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+
+            transition:
+                width 0.42s var(--spring),
+                box-shadow 0.42s var(--spring);
+        }
+
+        .ai-demo-sidebar:hover,
+        .ai-demo-sidebar:focus-within {
+            width: 226px;
+            box-shadow: 25px 0 55px -25px rgba(0, 0, 0, 0.85);
+        }
+
+        .ai-demo-sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 38px;
+            min-height: 38px;
+            padding: 0 4px;
+            margin-bottom: 9px;
+        }
+
+        .ai-demo-logo {
+            width: 30px;
+            height: 30px;
+            flex: 0 0 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            color: #08111e;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .ai-demo-brand-name {
+            color: var(--fg);
+            font-size: 14px;
+            font-weight: 750;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .ai-demo-sidebar:hover .ai-demo-brand-name,
+        .ai-demo-sidebar:focus-within .ai-demo-brand-name {
+            opacity: 1;
+            transition-delay: 0.08s;
+        }
+
+        .ai-demo-sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            height: 44px;
+            min-height: 44px;
+            padding: 0 10px;
+
+            color: var(--muted);
+            text-decoration: none;
+            border: 0;
+            border-radius: 11px;
+            background: transparent;
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+
+            transition:
+                background 0.2s var(--spring),
+                color 0.2s ease;
+        }
+
+        .ai-demo-sidebar-link:hover {
+            color: var(--fg);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .ai-demo-sidebar-link.active {
+            color: var(--fg);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .ai-demo-sidebar-link.active .ai-demo-sidebar-icon {
+            color: var(--accent);
+        }
+
+        .ai-demo-sidebar-icon {
+            width: 24px;
+            height: 24px;
+            flex: 0 0 24px;
+            display: grid;
+            place-items: center;
+            color: inherit;
+        }
+
+        .ai-demo-sidebar-icon svg {
+            display: block;
+            width: 19px;
+            height: 19px;
+        }
+
+        .ai-demo-sidebar-label {
+            color: inherit;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .ai-demo-sidebar:hover .ai-demo-sidebar-label,
+        .ai-demo-sidebar:focus-within .ai-demo-sidebar-label {
+            opacity: 1;
+            transition-delay: 0.08s;
+        }
+
+        .ai-demo-sidebar-separator {
+            height: 1px;
+            min-height: 1px;
+            margin: 9px 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-demo-sidebar-spacer {
+            flex: 1;
+        }
+
+        .ai-demo-avatar {
+            width: 26px;
+            height: 26px;
+            flex: 0 0 26px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #08111e;
+            background: linear-gradient(135deg, var(--cyan), var(--accent));
+            font-size: 9px;
+            font-weight: 850;
+        }
+
+        /* Chat area */
+
+        .ai-demo-chat {
+            position: absolute;
+            inset: 0 0 0 68px;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background: transparent;
+        }
+
+        .ai-demo-chat-header {
+            min-height: 61px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ai-demo-chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .ai-demo-ai-avatar {
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #7c8cff, #6256d9);
+            box-shadow: 0 0 22px rgba(124, 140, 255, 0.15);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .ai-demo-chat-title {
+            margin: 0;
+            color: var(--fg);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .ai-demo-chat-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .ai-demo-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #50d890;
+        }
+
+        .ai-demo-model-label {
+            padding: 7px 10px;
+            color: #b9beff;
+            background: rgba(124, 140, 255, 0.09);
+            border: 1px solid rgba(124, 140, 255, 0.17);
+            border-radius: 8px;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .ai-demo-messages {
+            flex: 1;
+            width: 100%;
+            max-width: 760px;
+            min-height: 0;
+            margin: 0 auto;
+            padding: 28px 28px 18px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+        }
+
+        .ai-demo-welcome {
+            margin: 10px 0 28px;
+            text-align: center;
+        }
+
+        .ai-demo-welcome-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 16px;
+            border: 1px solid rgba(124, 140, 255, 0.25);
+            border-radius: 16px;
+            color: #fff;
+            background: linear-gradient(135deg,
+                    rgba(124, 140, 255, 0.22),
+                    rgba(51, 214, 255, 0.1));
+            font-size: 21px;
+        }
+
+        .ai-demo-welcome h3 {
+            margin: 0 0 9px;
+            color: var(--fg);
+            font-size: clamp(19px, 3vw, 24px);
+            letter-spacing: -0.035em;
+        }
+
+        .ai-demo-welcome p {
+            max-width: 430px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .ai-demo-message {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 0 0 22px;
+            animation: ai-demo-message-in 0.3s ease both;
+        }
+
+        .ai-demo-message.user {
+            justify-content: flex-end;
+        }
+
+        .ai-demo-message-avatar {
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            color: white;
+            background: linear-gradient(135deg, #7c8cff, #6256d9);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .ai-demo-message.user .ai-demo-message-avatar {
+            order: 2;
+            color: #10121a;
+            background: linear-gradient(135deg, var(--cyan), var(--accent));
+        }
+
+        .ai-demo-message-content {
+            max-width: min(85%, 500px);
+        }
+
+        .ai-demo-message-name {
+            margin: 0 0 7px;
+            color: #c2c6d2;
+            font-size: 10px;
+            font-weight: 650;
+        }
+
+        .ai-demo-message.user .ai-demo-message-name {
+            text-align: right;
+        }
+
+        .ai-demo-message-bubble {
+            padding: 12px 14px;
+            color: #dfe1e9;
+            background: #151720;
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 4px 13px 13px 13px;
+            font-size: 12px;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .ai-demo-message.user .ai-demo-message-bubble {
+            color: #f0f1ff;
+            background: rgba(124, 140, 255, 0.13);
+            border-color: rgba(124, 140, 255, 0.2);
+            border-radius: 13px 4px 13px 13px;
+        }
+
+        .ai-demo-message.user .ai-demo-message-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        /* Suggested prompts */
+
+        .ai-demo-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 8px 0 20px;
+        }
+
+        .ai-demo-suggestion {
+            padding: 9px 12px;
+            color: #bfc3d1;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 10px;
+            cursor: pointer;
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .ai-demo-suggestion:hover {
+            color: #fff;
+            background: rgba(124, 140, 255, 0.09);
+            border-color: rgba(124, 140, 255, 0.4);
+        }
+
+        /* Message input */
+
+        .ai-demo-composer-wrap {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 28px 20px;
+        }
+
+        .ai-demo-composer {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 10px;
+            background: #13151e;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .ai-demo-composer:focus-within {
+            border-color: rgba(124, 140, 255, 0.55);
+        }
+
+        .ai-demo-input {
+            flex: 1;
+            width: 100%;
+            min-width: 0;
+            min-height: 25px;
+            max-height: 100px;
+            padding: 4px 5px;
+            resize: none;
+            border: 0;
+            outline: none;
+            color: var(--fg);
+            background: transparent;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .ai-demo-input::placeholder {
+            color: #777c8b;
+        }
+
+        .ai-demo-send {
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 10px;
+            color: #0a0b10;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .ai-demo-send:hover {
+            transform: translateY(-2px);
+        }
+
+        .ai-demo-send:active {
+            transform: scale(0.96);
+        }
+
+        .ai-demo-send svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .ai-demo-disclaimer {
+            margin: 9px 0 0;
+            color: #737786;
+            font-size: 9px;
+            text-align: center;
+        }
+
+        .ai-demo-typing {
+            color: var(--muted);
+            font-size: 11px;
+            animation: ai-demo-pulse 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes ai-demo-message-in {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes ai-demo-pulse {
+            from {
+                opacity: 0.5;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive styles */
+
+        @media (max-width: 700px) {
+            .ai-demo-showcase {
+                padding: 48px 12px;
+            }
+
+            .ai-demo-heading {
+                margin-bottom: 26px;
+            }
+
+            .ai-demo-heading p {
+                font-size: 13px;
+            }
+
+            .ai-demo-window {
+                height: 620px;
+                border-radius: 15px;
+            }
+
+            .ai-demo-topbar {
+                padding: 0 12px;
+            }
+
+            .ai-demo-sidebar {
+                width: 58px;
+                padding: 12px 7px;
+            }
+
+            .ai-demo-sidebar:hover,
+            .ai-demo-sidebar:focus-within {
+                width: 200px;
+            }
+
+            .ai-demo-sidebar-link {
+                gap: 11px;
+                padding: 0 8px;
+            }
+
+            .ai-demo-chat {
+                left: 58px;
+            }
+
+            .ai-demo-chat-header {
+                min-height: 56px;
+                padding: 10px 12px;
+            }
+
+            .ai-demo-model-label {
+                display: none;
+            }
+
+            .ai-demo-messages {
+                padding: 23px 13px 15px;
+            }
+
+            .ai-demo-welcome {
+                margin-top: 5px;
+            }
+
+            .ai-demo-welcome p {
+                font-size: 11px;
+            }
+
+            .ai-demo-message-content {
+                max-width: 88%;
+            }
+
+            .ai-demo-message-bubble {
+                padding: 10px 11px;
+                font-size: 11px;
+            }
+
+            .ai-demo-composer-wrap {
+                padding: 0 12px 14px;
+            }
+
+            .ai-demo-suggestions {
+                gap: 6px;
+            }
+
+            .ai-demo-suggestion {
+                padding: 8px 9px;
+                font-size: 9px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .ai-demo-window {
+                height: 600px;
+            }
+
+            .ai-demo-sidebar {
+                width: 52px;
+                padding-right: 5px;
+                padding-left: 5px;
+            }
+
+            .ai-demo-sidebar:hover,
+            .ai-demo-sidebar:focus-within {
+                width: 185px;
+            }
+
+            .ai-demo-chat {
+                left: 52px;
+            }
+
+            .ai-demo-sidebar-link {
+                gap: 9px;
+                padding: 0 7px;
+            }
+
+            .ai-demo-messages {
+                padding-right: 9px;
+                padding-left: 9px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ai-demo-sidebar {
+                transition: width 0.2s ease;
+            }
+
+            .ai-demo-sidebar-label,
+            .ai-demo-brand-name {
+                transition: none;
+            }
+
+            .ai-demo-message {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <section class="ai-demo-showcase">
+        <div class="ai-demo-container">
+
+            <header class="ai-demo-heading">
+                <div class="ai-demo-eyebrow">
+                    <span class="ai-demo-eyebrow-dot"></span>
+                    MEET YOUR AI WORKSPACE
+                </div>
+
+                <h2>
+                    Ideas into action with
+                    <span class="ai-demo-gradient-text">Aivora AI.</span>
+                </h2>
+
+                <p>
+                    Think, create, and solve problems with an AI workspace designed
+                    to help your ideas move forward.
+                </p>
+            </header>
+
+            <div class="ai-demo-window">
+
+                
+                <div class="ai-demo-topbar">
+                    <span class="ai-demo-window-dot"></span>
+                    <span class="ai-demo-window-dot"></span>
+                    <span class="ai-demo-window-dot"></span>
+
+                    <span class="ai-demo-topbar-title">Aivora AI Workspace</span>
+                </div>
+
+                <div class="ai-demo-app">
+
+                    <nav class="ai-demo-sidebar" aria-label="Aivora demo navigation">
+
+                        <div class="ai-demo-sidebar-brand">
+                            <span class="ai-demo-logo">A</span>
+                            <span class="ai-demo-brand-name">Aivora AI</span>
+                        </div>
+
+                        <a class="ai-demo-sidebar-link active" href="#aivora-chat" aria-current="page">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3v3m0 12v3M3 12h3m12 0h3" />
+                                    <path d="m5.6 5.6 2.1 2.1m8.6 8.6 2.1 2.1" />
+                                    <path d="m18.4 5.6-2.1 2.1m-8.6 8.6-2.1 2.1" />
+                                    <circle cx="12" cy="12" r="4" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">New conversation</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="7" />
+                                    <path d="m20 20-4-4" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">Explore AI</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">My projects</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8
+                    8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9
+                    L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8
+                    8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5
+                    a8.5 8.5 0 0 1 8 8v.5z" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">AI chat</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 3v18h18" />
+                                    <path d="m7 14 4-4 4 4 6-7" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">Insights</span>
+                        </a>
+
+                        <div class="ai-demo-sidebar-separator"></div>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1
+                    -1.7 2.9-.2-.1a1.7 1.7 0 0 0-1.9.3l-.1.1h-3.4
+                    l-.1-.2a1.7 1.7 0 0 0-1.6-1.1 1.7 1.7 0 0 0-.9.3
+                    l-.2.1-2.9-1.7.1-.2a1.7 1.7 0 0 0-.3-1.9l-.1-.1
+                    v-3.4l.2-.1a1.7 1.7 0 0 0 1.1-1.6 1.7 1.7 0 0 0-.3-.9
+                    l-.1-.2 1.7-2.9.2.1a1.7 1.7 0 0 0 1.9-.3l.1-.1h3.4
+                    l.1.2a1.7 1.7 0 0 0 1.6 1.1 1.7 1.7 0 0 0 .9-.3
+                    l.2-.1 2.9 1.7-.1.2a1.7 1.7 0 0 0 .3 1.9l.1.1z" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">Settings</span>
+                        </a>
+
+                        <div class="ai-demo-sidebar-spacer"></div>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-avatar">AL</span>
+                            <span class="ai-demo-sidebar-label">Alex Morgan</span>
+                        </a>
+
+                    </nav>
+
+                    <main class="ai-demo-chat" id="aivora-chat">
+
+                        <header class="ai-demo-chat-header">
+                            <div class="ai-demo-chat-header-left">
+                                <div class="ai-demo-ai-avatar">✦</div>
+
+                                <div>
+                                    <h3 class="ai-demo-chat-title">Aivora Assistant</h3>
+                                    <div class="ai-demo-chat-status">
+                                        <span class="ai-demo-status-dot"></span>
+                                        Ready to help
+                                    </div>
+                                </div>
+                            </div>
+
+                        </header>
+
+                        <div class="ai-demo-messages" id="aiDemoMessages">
+
+                            <div class="ai-demo-welcome" id="aiDemoWelcome">
+                                <div class="ai-demo-welcome-icon">✦</div>
+                                <h3>What can we create today?</h3>
+                                <p>
+                                    From your first idea to your next big project,
+                                    Aivora helps you think clearly and get things done.
+                                </p>
+                            </div>
+
+                            <div class="ai-demo-message">
+                                <div class="ai-demo-message-avatar">A</div>
+
+                                <div class="ai-demo-message-content">
+                                    <div class="ai-demo-message-name">Aivora AI</div>
+                                    <div class="ai-demo-message-bubble">
+                                        Hi Alex! 👋 I'm your Aivora assistant.
+                                        I can help you brainstorm ideas, plan projects,
+                                        write content, and explore new possibilities.
+                                        What would you like to work on today?
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ai-demo-message user">
+                                <div class="ai-demo-message-avatar">AL</div>
+
+                                <div class="ai-demo-message-content">
+                                    <div class="ai-demo-message-name">You</div>
+                                    <div class="ai-demo-message-bubble">
+                                        Help me turn a new product idea into a clear action plan.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ai-demo-message">
+                                <div class="ai-demo-message-avatar">A</div>
+
+                                <div class="ai-demo-message-content">
+                                    <div class="ai-demo-message-name">Aivora AI</div>
+                                    <div class="ai-demo-message-bubble">
+                                        Absolutely! Let's make it actionable. 🚀<br><br>
+                                        <strong>1. Define the idea.</strong> What problem does it solve?<br>
+                                        <strong>2. Identify your audience.</strong> Who needs it most?<br>
+                                        <strong>3. Build a first version.</strong> Focus on the essential features.<br>
+                                        <strong>4. Test and improve.</strong> Gather feedback and refine your
+                                        approach.<br><br>
+                                        Tell me a little about your idea, and we'll take the next step together.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="ai-demo-composer-wrap">
+
+                            <div class="ai-demo-suggestions">
+                                <button class="ai-demo-suggestion" type="button">
+                                    💡 Brainstorm ideas
+                                </button>
+
+                                <button class="ai-demo-suggestion" type="button">
+                                    📝 Write content
+                                </button>
+
+                                <button class="ai-demo-suggestion" type="button">
+                                    📊 Plan a project
+                                </button>
+                            </div>
+
+                            <form class="ai-demo-composer" id="aiDemoForm">
+                                <textarea class="ai-demo-input" id="aiDemoInput" rows="1"
+                                    placeholder="Ask Aivora anything..." aria-label="Message Aivora AI"></textarea>
+
+                                <button class="ai-demo-send" type="submit" aria-label="Send message">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m22 2-7 20-4-9-9-4Z" />
+                                        <path d="M22 2 11 13" />
+                                    </svg>
+                                </button>
+                            </form>
+
+                            <p class="ai-demo-disclaimer">
+                                Aivora demo · Responses are simulated and are not connected to a live AI model.
+                            </p>
+
+                        </div>
+
+                    </main>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (() => {
+            const demo = document.querySelector(".ai-demo-showcase");
+
+            if (!demo) return;
+
+            const form = demo.querySelector("#aiDemoForm");
+            const input = demo.querySelector("#aiDemoInput");
+            const messages = demo.querySelector("#aiDemoMessages");
+            const welcome = demo.querySelector("#aiDemoWelcome");
+            const suggestions = demo.querySelectorAll(".ai-demo-suggestion");
+
+            function scrollToBottom() {
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            function addMessage(text, sender) {
+                const message = document.createElement("div");
+                message.className = "ai-demo-message " + sender;
+
+                const avatar = document.createElement("div");
+                avatar.className = "ai-demo-message-avatar";
+                avatar.textContent = sender === "user" ? "AL" : "A";
+
+                const content = document.createElement("div");
+                content.className = "ai-demo-message-content";
+
+                const name = document.createElement("div");
+                name.className = "ai-demo-message-name";
+                name.textContent = sender === "user" ? "You" : "Aivora AI";
+
+                const bubble = document.createElement("div");
+                bubble.className = "ai-demo-message-bubble";
+
+                // Use textContent so user input is treated as plain text.
+                bubble.textContent = text;
+
+                content.appendChild(name);
+                content.appendChild(bubble);
+                message.appendChild(avatar);
+                message.appendChild(content);
+                messages.appendChild(message);
+
+                scrollToBottom();
+                return message;
+            }
+
+            function getDemoReply(message) {
+                const text = message.toLowerCase();
+
+                if (text.includes("idea") || text.includes("brainstorm")) {
+                    return "Let's explore a few possibilities. Start with the problem you want to solve, the people who experience it, and what would make your solution different. From there, we can shape your idea into a practical plan.";
+                }
+
+                if (text.includes("content") || text.includes("write")) {
+                    return "Let's create something clear and engaging. Tell me who the content is for, what you want the reader to understand, and the tone you're aiming for. We can then shape a draft around those goals.";
+                }
+
+                if (text.includes("project") || text.includes("plan")) {
+                    return "Here's a simple starting point: define your goal, break it into small milestones, identify the most important first task, and set a way to measure progress. What outcome would make this project a success?";
+                }
+
+                return "That's a great starting point. Let's break it down into manageable steps, clarify your main goal, and identify the best next action. Could you share one more detail so we can make the plan more specific?";
+            }
+
+            function sendMessage(text) {
+                const cleanText = text.trim();
+
+                if (!cleanText) return;
+
+                if (welcome) {
+                    welcome.style.display = "none";
+                }
+
+                addMessage(cleanText, "user");
+                input.value = "";
+                input.style.height = "auto";
+
+                const typingMessage = document.createElement("div");
+                typingMessage.className = "ai-demo-message";
+
+                const typingAvatar = document.createElement("div");
+                typingAvatar.className = "ai-demo-message-avatar";
+                typingAvatar.textContent = "A";
+
+                const typingContent = document.createElement("div");
+                typingContent.className = "ai-demo-message-content";
+
+                const typingName = document.createElement("div");
+                typingName.className = "ai-demo-message-name";
+                typingName.textContent = "Aivora AI";
+
+                const typingBubble = document.createElement("div");
+                typingBubble.className = "ai-demo-message-bubble";
+
+                const typingText = document.createElement("span");
+                typingText.className = "ai-demo-typing";
+                typingText.textContent = "Aivora is thinking...";
+
+                typingBubble.appendChild(typingText);
+                typingContent.appendChild(typingName);
+                typingContent.appendChild(typingBubble);
+                typingMessage.appendChild(typingAvatar);
+                typingMessage.appendChild(typingContent);
+                messages.appendChild(typingMessage);
+
+                scrollToBottom();
+
+                // Simulated reply for the visual demo; no API is connected.
+                window.setTimeout(() => {
+                    typingMessage.remove();
+                    addMessage(getDemoReply(cleanText), "assistant");
+                }, 800);
+            }
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                sendMessage(input.value);
+            });
+
+            input.addEventListener("input", () => {
+                input.style.height = "auto";
+                input.style.height = Math.min(input.scrollHeight, 100) + "px";
+            });
+
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    form.requestSubmit();
+                }
+            });
+
+            suggestions.forEach((button) => {
+                button.addEventListener("click", () => {
+                    sendMessage(button.textContent.replace(/^[^a-zA-Z]+/, "").trim());
+                });
+            });
+        })();
+    </script>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aivora AI Demo</title>
+
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+    <section class="ai-demo-showcase">
+        <div class="ai-demo-container">
+
+            <header class="ai-demo-heading">
+                <div class="ai-demo-eyebrow">
+                    <span class="ai-demo-eyebrow-dot"></span>
+                    MEET YOUR AI WORKSPACE
+                </div>
+
+                <h2>
+                    Ideas into action with
+                    <span class="ai-demo-gradient-text">Aivora AI.</span>
+                </h2>
+
+                <p>
+                    Think, create, and solve problems with an AI workspace designed
+                    to help your ideas move forward.
+                </p>
+            </header>
+
+            <div class="ai-demo-window">
+
+                <div class="ai-demo-topbar">
+                    <span class="ai-demo-window-dot"></span>
+                    <span class="ai-demo-window-dot"></span>
+                    <span class="ai-demo-window-dot"></span>
+                    <span class="ai-demo-topbar-title">Aivora AI Workspace</span>
+                </div>
+
+                <div class="ai-demo-app">
+
+                    <!-- Animated demo sidebar -->
+                    <nav class="ai-demo-sidebar" aria-label="Aivora demo navigation">
+
+                        <div class="ai-demo-sidebar-brand">
+                            <span class="ai-demo-logo">A</span>
+                            <span class="ai-demo-brand-name">Aivora AI</span>
+                        </div>
+
+                        <a class="ai-demo-sidebar-link active" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3v3m0 12v3M3 12h3m12 0h3" />
+                                    <path d="m5.6 5.6 2.1 2.1m8.6 8.6 2.1 2.1" />
+                                    <path d="m18.4 5.6-2.1 2.1m-8.6 8.6-2.1 2.1" />
+                                    <circle cx="12" cy="12" r="4" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">New conversation</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="7" />
+                                    <path d="m20 20-4-4" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">Explore AI</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">My projects</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8
+                  8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9
+                  L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8
+                  8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5
+                  a8.5 8.5 0 0 1 8 8v.5z" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">AI chat</span>
+                        </a>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 3v18h18" />
+                                    <path d="m7 14 4-4 4 4 6-7" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">Insights</span>
+                        </a>
+
+                        <div class="ai-demo-sidebar-separator"></div>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-sidebar-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path d="M19.4 13.5a1.6 1.6 0 0 0 .3 1.8l.1.1
+                  a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21
+                  a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4l-.1.1
+                  a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H3
+                  a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 7l-.1-.1
+                  a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9
+                  a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1
+                  a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1
+                  a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21
+                  a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z" />
+                                </svg>
+                            </span>
+                            <span class="ai-demo-sidebar-label">Settings</span>
+                        </a>
+
+                        <div class="ai-demo-sidebar-spacer"></div>
+
+                        <a class="ai-demo-sidebar-link" href="#aivora-chat">
+                            <span class="ai-demo-avatar">AL</span>
+                            <span class="ai-demo-sidebar-label">Alex Morgan</span>
+                        </a>
+
+                    </nav>
+
+                    <!-- Chat window -->
+                    <main class="ai-demo-chat" id="aivora-chat">
+
+                        <header class="ai-demo-chat-header">
+                            <div class="ai-demo-chat-header-left">
+                                <div class="ai-demo-ai-avatar">✦</div>
+
+                                <div>
+                                    <h3 class="ai-demo-chat-title">Aivora Assistant</h3>
+                                    <div class="ai-demo-chat-status">
+                                        <span class="ai-demo-status-dot"></span>
+                                        Ready to help
+                                    </div>
+                                </div>
+                            </div>
+
+                        </header>
+
+                        <div class="ai-demo-messages" id="aiDemoMessages">
+
+                            <div class="ai-demo-welcome" id="aiDemoWelcome">
+                                <div class="ai-demo-welcome-icon">✦</div>
+                                <h3>What can we create today?</h3>
+                                <p>
+                                    From your first idea to your next big project,
+                                    Aivora helps you think clearly and get things done.
+                                </p>
+                            </div>
+
+                            <div class="ai-demo-message">
+                                <div class="ai-demo-message-avatar">A</div>
+                                <div class="ai-demo-message-content">
+                                    <div class="ai-demo-message-name">Aivora AI</div>
+                                    <div class="ai-demo-message-bubble">
+                                        Hi Alex! 👋 I'm your Aivora assistant.
+                                        I can help you brainstorm ideas, plan projects,
+                                        write content, and explore new possibilities.
+                                        What would you like to work on today?
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ai-demo-message user">
+                                <div class="ai-demo-message-avatar">AL</div>
+                                <div class="ai-demo-message-content">
+                                    <div class="ai-demo-message-name">You</div>
+                                    <div class="ai-demo-message-bubble">
+                                        Help me turn a new product idea into a clear action plan.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ai-demo-message">
+                                <div class="ai-demo-message-avatar">A</div>
+                                <div class="ai-demo-message-content">
+                                    <div class="ai-demo-message-name">Aivora AI</div>
+                                    <div class="ai-demo-message-bubble">
+                                        Absolutely! Let's make it actionable. 🚀<br><br>
+                                        <strong>1. Define the idea.</strong> What problem does it solve?<br>
+                                        <strong>2. Identify your audience.</strong> Who needs it most?<br>
+                                        <strong>3. Build a first version.</strong> Focus on the essential features.<br>
+                                        <strong>4. Test and improve.</strong> Gather feedback and refine your
+                                        approach.<br><br>
+                                        Tell me a little about your idea, and we'll take the next step together.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Bottom area: suggestion buttons + text field + send button -->
+                        <div class="ai-demo-composer-wrap">
+
+                            <div class="ai-demo-suggestions">
+                                <button class="ai-demo-suggestion" type="button">
+                                    💡 Brainstorm ideas
+                                </button>
+
+                                <button class="ai-demo-suggestion" type="button">
+                                    📝 Write content
+                                </button>
+
+                                <button class="ai-demo-suggestion" type="button">
+                                    📊 Plan a project
+                                </button>
+                            </div>
+
+                            <p class="ai-demo-disclaimer">
+                                Aivora demo · Responses are simulated and are not connected to a live AI model.
+                            </p>
+
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+
+</html>
