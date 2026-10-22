@@ -1,0 +1,478 @@
+.ai-demo-showcase{
+
+    --bg:#0a0b10;
+    --fg:#f3f4f8;
+    --muted:#9498a6;
+    --line:rgba(255,255,255,.10);
+    --accent:#7c8cff;
+    --accent2:#33d6ff;
+
+
+    background:var(--bg);
+
+    padding:120px 20px;
+
+    color:var(--fg);
+
+}
+
+
+
+.ai-demo-container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+
+
+/* HEADER */
+
+
+.ai-demo-header{
+
+    text-align:center;
+
+    max-width:700px;
+
+    margin:auto;
+
+}
+
+
+
+.ai-demo-tag{
+
+    display:inline-flex;
+
+    padding:8px 18px;
+
+    border:1px solid var(--line);
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    color:var(--accent2);
+
+    background:rgba(255,255,255,.03);
+
+}
+
+
+
+.ai-demo-header h2{
+
+    font-size:55px;
+
+    line-height:1.1;
+
+    margin:25px 0;
+
+    letter-spacing:-2px;
+
+}
+
+
+
+.ai-demo-header h2 span{
+
+    background:linear-gradient(
+        90deg,
+        var(--accent),
+        var(--accent2)
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+
+.ai-demo-header p{
+
+    color:var(--muted);
+
+    font-size:18px;
+
+    line-height:1.7;
+
+}
+
+
+
+
+
+/* AI WINDOW */
+
+
+.ai-demo-window{
+
+    margin-top:70px;
+
+    border:1px solid var(--line);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:#10121a;
+
+    box-shadow:
+    0 0 80px rgba(124,140,255,.12);
+
+}
+
+
+
+
+
+.ai-demo-topbar{
+
+    height:55px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:0 22px;
+
+    border-bottom:1px solid var(--line);
+
+}
+
+
+
+.ai-demo-topbar span{
+
+    margin-left:15px;
+
+    color:var(--muted);
+
+}
+
+
+
+.ai-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#ffffff33;
+
+}
+
+
+
+
+/* CHAT */
+
+
+.ai-chat{
+
+    padding:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
+
+}
+
+
+
+
+.message{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+}
+
+
+
+.avatar{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#ffffff10;
+
+    border:1px solid var(--line);
+
+    font-size:14px;
+
+}
+
+
+
+.ai-avatar{
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent2)
+    );
+
+    color:#fff;
+
+}
+
+
+
+.bubble{
+
+    max-width:600px;
+
+    padding:18px 22px;
+
+    border-radius:18px;
+
+    background:#ffffff08;
+
+    border:1px solid var(--line);
+
+    line-height:1.7;
+
+}
+
+
+
+
+.ai-message .bubble{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(124,140,255,.12),
+        rgba(51,214,255,.08)
+    );
+
+}
+
+
+
+
+.bubble ul{
+
+    margin-top:15px;
+
+    padding-left:20px;
+
+}
+
+
+.bubble li{
+
+    margin:8px 0;
+
+    color:#dfe2ea;
+
+}
+
+
+
+
+/* INPUT */
+
+
+.ai-input{
+
+    margin:0 30px 30px;
+
+    height:65px;
+
+    border-radius:18px;
+
+    border:1px solid var(--line);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    color:var(--muted);
+
+    background:#0b0d13;
+
+}
+
+
+
+.ai-input button{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    border:none;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent2)
+    );
+
+}
+
+
+
+
+
+/* FEATURE CARDS */
+
+
+.ai-features{
+
+    margin-top:60px;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+
+
+.feature-card{
+
+    padding:35px;
+
+    border-radius:24px;
+
+    border:1px solid var(--line);
+
+    background:#ffffff04;
+
+    transition:.3s;
+
+}
+
+
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#7c8cff55;
+
+}
+
+
+
+.feature-icon{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(124,140,255,.2),
+        rgba(51,214,255,.2)
+    );
+
+    margin-bottom:20px;
+
+}
+
+
+
+.feature-card h3{
+
+    margin-bottom:12px;
+
+    font-size:22px;
+
+}
+
+
+
+.feature-card p{
+
+    color:var(--muted);
+
+    line-height:1.6;
+
+}
+
+
+
+
+
+
+/* RESPONSIVE */
+
+
+@media(max-width:900px){
+
+
+.ai-demo-header h2{
+
+    font-size:40px;
+
+}
+
+
+
+.ai-features{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.ai-chat{
+
+    padding:25px;
+
+}
+
+
+
+}
