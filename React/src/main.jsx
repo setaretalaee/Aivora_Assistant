@@ -10,6 +10,7 @@ import './sections/footer/footer.css';
 import './sections/ai-demo-showcase/ai-demo-showcase.css';
 import './sections/plan-cards/plan-cards.css';
 import './sections/faq/faq.css';
+import './sections/cta/cta.css';
 import './sections/contact/contact.css';
 import './sections/blog/blog.css';
 import './sections/solutions/solutions.css';

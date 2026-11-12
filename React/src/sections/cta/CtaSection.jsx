@@ -1,36 +1,162 @@
 
-
 export default function CtaSection() {
   return (
     <>
-<section className="ctad">
-<div className="ctad-card">
-<div className="ctad-l">
-<span className="ctad-eyebrow"><span className="d" />Mobile</span>
-<h2>Take it everywhere. <em>Get the app</em>.</h2>
-<p className="ctad-sub">Your whole workspace in your pocket — fast, offline-ready and beautifully native on iOS and Android.</p>
-<div className="ctad-rating"><span className="ctad-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17l-6.2 3.9 1.6-6.8L2.2 8.9l6.9-.6z" /></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17l-6.2 3.9 1.6-6.8L2.2 8.9l6.9-.6z" /></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17l-6.2 3.9 1.6-6.8L2.2 8.9l6.9-.6z" /></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17l-6.2 3.9 1.6-6.8L2.2 8.9l6.9-.6z" /></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17l-6.2 3.9 1.6-6.8L2.2 8.9l6.9-.6z" /></svg></span>4.9 · 12k reviews</div>
-<div className="ctad-badges">
-<a className="ctad-badge" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.1-2.8.8-3.5.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.7 2.4 3 2.3 1.2-.1 1.6-.8 3.1-.8 1.4 0 1.8.8 3.1.8 1.3 0 2.1-1.1 2.9-2.3.6-.8.8-1.3 1.3-2.2-3.4-1.3-2.9-5.3.2-6.6zM14.3 5.8c.7-.8 1.1-2 1-3.2-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 .9.1 1.9-.5 2.9-1.3z" /></svg><span className="t"><small>Download on the</small><b>App Store</b></span></a>
-<a className="ctad-badge" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 3l14 9-14 9V3z" /></svg><span className="t"><small>Get it on</small><b>Google Play</b></span></a>
-</div>
-</div>
-<div className="ctad-r">
-<div className="ctad-phone">
-<div className="ctad-screen">
-<div className="ctad-shead" />
-<div className="ctad-sbody">
-<div className="ctad-srow"><span className="av" /><span className="ln"><i /><i className="s" /></span></div>
-<div className="ctad-srow"><span className="av" /><span className="ln"><i /><i className="s" /></span></div>
-<div className="ctad-srow"><span className="av" /><span className="ln"><i /><i className="s" /></span></div>
-<div className="ctad-srow"><span className="av" /><span className="ln"><i /><i className="s" /></span></div>
-</div>
-<div className="ctad-stab"><i /><i /><i /><i /></div>
-</div>
-</div>
-</div>
-</div>
-</section>
+      <section className="ctad">
+        <div className="ctad-card">
+          {/* Left: Aivora Introduction */}
+          <div className="ctad-l">
+            <span className="ctad-eyebrow">
+              <span className="d" />
+              Your AI Workspace
+            </span>
+
+            <h2>
+              Turn ideas into reality. <em>Meet Aivora.</em>
+            </h2>
+
+            <p className="ctad-sub">
+              Your AI-powered workspace to think smarter, create faster,
+              and turn everyday tasks into extraordinary results.
+              Less busywork, more brilliant ideas.
+            </p>
+
+            <div className="ctad-features">
+              <span className="ctad-feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3z" />
+                  <path d="M19 14l1.2 2.8L23 18l-2.8 1.2L19 22l-1.2-2.8L15 18l2.8-1.2L19 14z" />
+                </svg>
+                AI-powered creativity
+              </span>
+
+              <span className="ctad-feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
+                Work smarter
+              </span>
+
+              <span className="ctad-feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 3l8 4v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V7l8-4z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+                One seamless workspace
+              </span>
+            </div>
+
+            <div className="ctad-badges">
+              <a className="ctad-badge primary" href="#get-started">
+                Get Started
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14" />
+                  <path d="M13 6l6 6-6 6" />
+                </svg>
+              </a>
+
+              <a className="ctad-badge" href="#features">
+                Explore Aivora
+              </a>
+            </div>
+
+            <p className="ctad-note">
+              Your ideas deserve more. Let's build something extraordinary.
+            </p>
+          </div>
+
+          {/* Right: AI Workspace Preview */}
+          <div className="ctad-r">
+            <div className="ctad-preview">
+              <div className="ctad-window">
+                <div className="ctad-window-head">
+                  <div className="ctad-brand">
+                    <span className="ctad-logo">A</span>
+                    Aivora
+                  </div>
+
+                  <div className="ctad-dots">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+
+                <div className="ctad-window-body">
+                  <div className="ctad-welcome">
+                    <small>Your creative space</small>
+
+                    <h3>What will you create today?</h3>
+
+                    <p>
+                      Bring your ideas. Let AI help you take the next step.
+                    </p>
+                  </div>
+
+                  <div className="ctad-prompt">
+                    <div className="ctad-prompt-label">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3z" />
+                      </svg>
+                      YOUR NEXT BIG IDEA
+                    </div>
+
+                    <p>
+                      Help me turn my idea into a clear plan,
+                      organize my thoughts, and find the best way to get started.
+                    </p>
+                  </div>
+
+                  <div className="ctad-response">
+                    <div className="ctad-response-icon">A</div>
+
+                    <div className="ctad-response-content">
+                      <strong>Your ideas, one step closer.</strong>
+
+                      <div className="ctad-line" />
+                      <div className="ctad-line medium" />
+                      <div className="ctad-line short" />
+                    </div>
+                  </div>
+
+                  <div className="ctad-tools">
+                    <div className="ctad-tool">
+                      <div className="ctad-tool-icon">✦</div>
+
+                      <strong>Create</strong>
+
+                      <small>Bring ideas to life</small>
+                    </div>
+
+                    <div className="ctad-tool">
+                      <div className="ctad-tool-icon">⌘</div>
+
+                      <strong>Organize</strong>
+
+                      <small>Make work simpler</small>
+                    </div>
+
+                    <div className="ctad-tool">
+                      <div className="ctad-tool-icon">↗</div>
+
+                      <strong>Achieve</strong>
+
+                      <small>Move ideas forward</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ctad-window-foot">
+                  <span className="ctad-status" />
+
+                  A new idea starts here.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
